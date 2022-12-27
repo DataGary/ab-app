@@ -2,6 +2,7 @@ import streamlit as st
 from scipy.stats import chi2_contingency 
 from scipy.stats import fisher_exact 
 import pandas as pd
+import statsmodels.stats as sm
 
 tab1, tab2, tab3 = st.tabs(["Quick Evaluation", "Detailed Analysis", "Wiki"])
 
