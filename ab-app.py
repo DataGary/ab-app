@@ -105,19 +105,28 @@ with tab1:
 
         if num_pos_A > 5 and num_pos_B > 5 and num_neg_A > 5 and num_neg_B > 5:
             st.markdown('**Chi-square test of independence of variables in a contingency table.**')
-            stat, p, dof, ex= chi2_contingency(cont_table)
-            st.write(f'Statistic Value: {stat}') 
-            st.write(f'p-value: {p}') 
-            st.write(f'Degrees of Freedom: {dof}') 
-            st.write(f'Expected: {ex}')
+            stat, p, dof, ex= chi2_contingency(cont_table, correction=False)
+            st.write(f'Chi-square value: {round(stat,2)}') 
+            st.write(f'p-value: {round(p,4)}') 
+            st.write(f'Degrees of freedom: {dof}') 
+            # st.write(f'Expected: {ex}')
             # calculate effect size
             phi_effect=np.sqrt(stat/(group_A+group_B))
-            st.write(f'Phi effect: {phi_effect}')
+            if phi_effect < 0.3:
+                st.write(f'Phi: {round(phi_effect,2)} (small effect)')
+            elif phi_effect < 0.5:
+                st.write(f'Phi: {round(phi_effect,2)} (medium effect)')
+            else:
+                st.write(f'Phi: {round(phi_effect,2)} (large effect)')
+            # calculate odds ratio
+            odds_ratio_xi = (num_pos_A*num_neg_B)/(num_neg_A*num_pos_B)
+            st.write(f'Odds Ratio (OR): {round(odds_ratio_xi,2)}')
         else:
             st.markdown('**Fisher exact test on a 2x2 contingency table.**')
-            odd_ratio, p= fisher_exact(cont_table)
-            st.write(f'Odds ratio: {odd_ratio}') 
-            st.write(f'p-value: {p}')
+            odds_ratio_fi, p= fisher_exact(cont_table)
+            st.write(f'p-value: {round(p,4)}')
+            st.write(f'Odds Ratio (OR): {round(odds_ratio_fi,2)}') 
+            
 
     # eval test
     if p <= significance_level: 
