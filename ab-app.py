@@ -3,6 +3,8 @@ from scipy.stats import chi2_contingency
 from scipy.stats import fisher_exact 
 import pandas as pd
 import statsmodels.stats as sm
+#from statsmodels.stats.gof import chisquare_effectsize
+import numpy as np
 
 tab1, tab2, tab3 = st.tabs(["Quick Evaluation", "Detailed Analysis", "Wiki"])
 
@@ -108,6 +110,9 @@ with tab1:
             st.write(f'p-value: {p}') 
             st.write(f'Degrees of Freedom: {dof}') 
             st.write(f'Expected: {ex}')
+            # calculate effect size
+            phi_effect=np.sqrt(stat/(group_A+group_B))
+            st.write(f'Phi effect: {phi_effect}')
         else:
             st.markdown('**Fisher exact test on a 2x2 contingency table.**')
             odd_ratio, p= fisher_exact(cont_table)
