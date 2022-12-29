@@ -3,7 +3,6 @@ from scipy.stats import chi2_contingency
 from scipy.stats import fisher_exact 
 import pandas as pd
 import statsmodels.stats as sm
-#from statsmodels.stats.gof import chisquare_effectsize
 import numpy as np
 
 tab1, tab2, tab3 = st.tabs(["Quick Evaluation", "Detailed Analysis", "Wiki"])
@@ -31,13 +30,12 @@ with tab1:
 
         # Input average response percentage for target group A
         response_rate_A = st.number_input(
-            'Input response rate in percent', 
+            'Input response rate in percent (%)', 
             min_value=0.0, 
             max_value=100.0,
             step = 1.0,
             value = 50.0,
-            key = 'response_rate_A')  
-        st.write(response_rate_A, ' %')
+            key = 'response_rate_A')
 
     with col2:
         st.markdown('''
@@ -54,13 +52,12 @@ with tab1:
 
         # Input average response percentage for target group A
         response_rate_B = st.number_input(
-            'Input response rate in percent', 
+            'Input response rate in percent (%)', 
             min_value=0.0, 
             max_value=100.0,
             step = 1.0,
             value=50.0,
-            key = 'response_rate_B')  
-        st.write(response_rate_B, ' %')
+            key = 'response_rate_B')
 
     # prepare values for chi-squared test
     num_pos_A = round(group_A * response_rate_A / 100)
@@ -121,6 +118,7 @@ with tab1:
             # calculate odds ratio
             odds_ratio_xi = (num_pos_A*num_neg_B)/(num_neg_A*num_pos_B)
             st.write(f'Odds Ratio (OR): {round(odds_ratio_xi,2)}')
+            # TO DO: calculate power
         else:
             st.markdown('**Fisher exact test on a 2x2 contingency table.**')
             odds_ratio_fi, p= fisher_exact(cont_table)
