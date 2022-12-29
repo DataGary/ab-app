@@ -4,8 +4,9 @@ from scipy.stats import fisher_exact
 import pandas as pd
 import statsmodels.stats as sm
 import numpy as np
+from pingouin import power_chi2
 
-tab1, tab2, tab3 = st.tabs(["Quick Evaluation", "Detailed Analysis", "Wiki"])
+tab1, tab2, tab3 = st.tabs(["⚙︎ Quick Evaluation", "🔬 Stats", "📖 Wiki"])
 
 with tab1:
     st.markdown('''
@@ -30,7 +31,7 @@ with tab1:
 
         # Input average response percentage for target group A
         response_rate_A = st.number_input(
-            'Input response rate in percent (%)', 
+            'Input conversion rate in percent (%)', 
             min_value=0.0, 
             max_value=100.0,
             step = 1.0,
@@ -52,7 +53,7 @@ with tab1:
 
         # Input average response percentage for target group A
         response_rate_B = st.number_input(
-            'Input response rate in percent (%)', 
+            'Input conversion rate in percent (%)', 
             min_value=0.0, 
             max_value=100.0,
             step = 1.0,
@@ -82,7 +83,7 @@ with tab1:
             )
 
             d = {'A' : [num_pos_A, num_neg_A], 'B' : [num_pos_B, num_neg_B]}
-            cont_df = pd.DataFrame(data = d, index = ['response', 'no response'])
+            cont_df = pd.DataFrame(data = d, index = ['converted', 'not converted'])
             cont_df
 
     st.markdown('---')
@@ -118,16 +119,29 @@ with tab1:
             # calculate odds ratio
             odds_ratio_xi = (num_pos_A*num_neg_B)/(num_neg_A*num_pos_B)
             st.write(f'Odds Ratio (OR): {round(odds_ratio_xi,2)}')
-            # TO DO: calculate power
+            # calculate power
+            pwr = power_chi2(
+                dof = dof,
+                w = phi_effect,
+                n = (group_A+group_B),
+                power = None,
+                alpha = significance_level
+            )
+            st.write(f'Power: {round(pwr,4)}')
         else:
             st.markdown('**Fisher exact test on a 2x2 contingency table.**')
             odds_ratio_fi, p= fisher_exact(cont_table)
             st.write(f'p-value: {round(p,4)}')
-            st.write(f'Odds Ratio (OR): {round(odds_ratio_fi,2)}') 
+            st.write(f'Odds Ratio (OR): {round(odds_ratio_fi,2)}')
+            # TO DO: implement other metrics for fisher exact
             
 
     # eval test
     if p <= significance_level: 
-        st.markdown('**Group A & Group B have significantly different response rates!**') 
+        st.markdown('''
+        # Group A & Group B *have significantly* different conversion rates!
+        ''') 
     else: 
-        st.markdown('**Group A & Group B do *not* have significantly different response rates!**')
+        st.markdown('''
+        # Group A & Group B do *not* have significantly different conversion rates!
+        ''')
