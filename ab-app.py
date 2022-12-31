@@ -6,7 +6,7 @@ import statsmodels.stats as sm
 import numpy as np
 from pingouin import power_chi2
 
-tab1, tab2, tab3 = st.tabs(["⚙︎ Quick Evaluation", "🔬 Stats", "📖 Wiki"])
+tab1, tab2, tab3 = st.tabs(["⚙︎ Test", "🔬 Stats", "📖 Wiki"])
 
 with tab1:
     st.markdown('''
@@ -137,11 +137,24 @@ with tab1:
             
 
     # eval test
-    if p <= significance_level: 
-        st.markdown('''
-        # Group A & Group B *have significantly* different conversion rates!
-        ''') 
+    if p <= significance_level:
+        if num_pos_A > 5 and num_pos_B > 5 and num_neg_A > 5 and num_neg_B > 5:
+            st.markdown('''
+            # ✅ Group A & Group B *have significantly* different conversion rates!
+            ''')
+            st.write('---')
+            st.markdown(f'### Effect size: {round(phi_effect,2)}')
+            st.write('Small: 0.10') 
+            st.write('Medium: 0.30') 
+            st.write('Large: 0.50')
+        else:
+            st.markdown('''
+            # ✅ Group A & Group B *have significantly* different conversion rates!
+            ''')
+            st.write('---')
+            st.markdown(f'### Effect size in terms of odds ratio: {round(odds_ratio_fi,2)}')
+            st.markdown('The further away from 1, the bigger the effect.')
     else: 
         st.markdown('''
-        # Group A & Group B do *not* have significantly different conversion rates!
+        # ❌ Group A & Group B do *not* have significantly different conversion rates!
         ''')
