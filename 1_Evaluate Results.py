@@ -6,7 +6,7 @@ import statsmodels.stats as sm
 import numpy as np
 from pingouin import power_chi2
 
-tab1, tab2, tab3 = st.tabs(["⚙︎ Test", "🔬 Stats", "📖 Wiki"])
+tab1, tab2 = st.tabs(["⚙︎ Test", "🔬 Stats"])
 
 with tab1:
     st.markdown('''
