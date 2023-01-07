@@ -54,5 +54,6 @@ sample_size = power_chi2(
 st.write('---')
 st.markdown(f'''
 ### Needed sample size for a level of significance of {sig_lvl}, 
-### an effect size of {round(phi,1)} and a power of {round(pwr,1)} is n={ceil(sample_size)} in each branch.
+### an effect size of {round(phi,1)} and a power of {round(pwr,1)} is n={ceil(sample_size)} 
+### (n={ceil(sample_size/2)} in each branch).
 ''')
