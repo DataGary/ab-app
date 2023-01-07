@@ -27,6 +27,7 @@ with tab1:
             'Input size of group A: ',
             step = 5,
             value = 100,
+            min_value=0,
             key = 'group_size_A')
 
         # Input average response percentage for target group A
@@ -49,6 +50,7 @@ with tab1:
             'Input size of group B: ',
             step = 5,
             value=100,
+            min_value=0,
             key = 'group_size_B')
 
         # Input average response percentage for target group A

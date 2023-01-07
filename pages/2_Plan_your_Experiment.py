@@ -26,6 +26,8 @@ with st.container():
             'Select desired statistical power: ',
             step = 0.10,
             value = 0.80,
+            min_value=0.01,
+            max_value=1.00,
             key = 'pwr'
         )
 
@@ -35,6 +37,8 @@ with st.container():
             'Select desired effect size: ',
             step = 0.10,
             value = 0.50,
+            min_value=0.01,
+            max_value=1.00,
             key = 'phi'
         )
         st.write('---')
