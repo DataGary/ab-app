@@ -27,7 +27,7 @@ with st.container():
             step = 0.10,
             value = 0.80,
             min_value=0.10,
-            max_value=1.00,
+            max_value=0.90,
             key = 'pwr'
         )
 
@@ -37,8 +37,8 @@ with st.container():
             'Select desired effect size: ',
             step = 0.10,
             value = 0.50,
-            min_value=0.01,
-            max_value=1.00,
+            min_value=0.10,
+            max_value=0.50,
             key = 'phi'
         )
         st.write('---')
