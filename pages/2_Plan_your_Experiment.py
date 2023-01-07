@@ -37,7 +37,7 @@ with st.container():
             'Select desired effect size: ',
             step = 0.10,
             value = 0.50,
-            min_value=0.01,
+            min_value=0.10,
             max_value=1.00,
             key = 'phi'
         )
