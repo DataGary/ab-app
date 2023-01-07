@@ -26,18 +26,18 @@ with st.container():
             'Select desired statistical power: ',
             step = 0.10,
             value = 0.80,
-            min_value=0.01,
+            min_value=0.10,
             max_value=1.00,
             key = 'pwr'
         )
 
     with col3:        
-        # select desired power
+        # select desired effect size
         phi = st.number_input(
             'Select desired effect size: ',
             step = 0.10,
             value = 0.50,
-            min_value=0.10,
+            min_value=0.01,
             max_value=1.00,
             key = 'phi'
         )
