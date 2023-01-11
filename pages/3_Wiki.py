@@ -2,14 +2,8 @@ import streamlit as st
 
 st.markdown('''
 ### Statistical significance
-In statistical hypothesis testing, a result has statistical significance when a result at least as "extreme" would be very infrequent if the null hypothesis were true. More precisely, a study's defined significance level, denoted by 
-α, is the probability of the study rejecting the null hypothesis, given that the null hypothesis is true;
-and the p-value of a result, p, is the probability of obtaining a result at least as extreme, 
-given that the null hypothesis is true. 
-The result is statistically significant, by the standards of the study, when 
-p≤α. The significance level for a study is chosen before data collection, 
-and is typically set to "5%" or much lower—depending on the field of study.
-https://en.wikipedia.org/wiki/Statistical_significance
+In statistics, the significance level, also known as the alpha level, is a threshold used to determine whether the results of a hypothesis test are statistically significant. The significance level is typically set at 0.05, which means that there is a 5% chance that the results of the test are due to random chance, rather than a true effect. If the p-value, or the probability of observing the data given that the null hypothesis is true, is less than the significance level, the null hypothesis is rejected, and the alternative hypothesis is accepted. In other words, if the p-value is less than the significance level, it means that the results are unlikely to be due to chance and are considered statistically significant.
+[https://openai.com/blog/chatgpt/]
 '''
 )
 
@@ -17,10 +11,8 @@ st.write('---')
 
 st.markdown('''
 ### Effect size
-In statistics, an effect size is a value measuring the strength of the relationship between two variables in a population, or a sample-based estimate of that quantity.
-[...]
-Effect sizes complement statistical hypothesis testing, and play an important role in power analyses, sample size planning, and in meta-analyses.
-https://en.wikipedia.org/wiki/Effect_size
+In statistics, effect size is a measure of the strength of the relationship between two variables or the magnitude of the difference between two groups. It gives an idea of the size of the difference or relationship that is being observed, independent of sample size. The Effect Size can be described in various measures such as Cohen's d, Pearson's r and Hedge's g. These are used to express the effect size of a difference between two means, correlation between two variables and the like. Effect size is important because it allows researchers to compare the strength of results across studies and also to understand the real world impact of the results.
+[https://openai.com/blog/chatgpt/]
 '''
 )
 
@@ -28,13 +20,8 @@ st.write('---')
 
 st.markdown('''
 ### Statistical Power
-In statistics, the power of a binary hypothesis test is the probability that the test correctly rejects the null hypothesis 
-(H0) when a specific alternative hypothesis (H1) is true. 
-It is commonly denoted by 1−β, and represents the chances of a true positive detection 
-conditional on the actual existence of an effect to detect. 
-Statistical power ranges from 0 to 1, and as the power of a test increases, 
-the probability β of making a type II error by wrongly failing to reject the null hypothesis decreases.
-https://en.wikipedia.org/wiki/Power_of_a_test
+In statistics, power is a measure of the probability of correctly rejecting the null hypothesis when the alternative hypothesis is true. It is the complement of the probability of making a type II error (i.e., failing to reject the null hypothesis when it is false). Power is an important concept in hypothesis testing, as it helps to determine the sample size needed to detect a true effect with a specified level of confidence. The higher the power, the greater the chance of detecting an effect when it exists. A commonly used target for power is 0.8, which means that the test has an 80% chance of detecting an effect when it exists. Power analysis can be used to determine the sample size required to achieve a desired level of power, given the magnitude of the effect, the significance level, and other factors.
+[https://openai.com/blog/chatgpt/]
 '''
 )
 
