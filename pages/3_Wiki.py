@@ -12,6 +12,19 @@ st.write('---')
 st.markdown('''
 ### Effect size
 In statistics, effect size is a measure of the strength of the relationship between two variables or the magnitude of the difference between two groups. It gives an idea of the size of the difference or relationship that is being observed, independent of sample size. The Effect Size can be described in various measures such as Cohen's d, Pearson's r and Hedge's g. These are used to express the effect size of a difference between two means, correlation between two variables and the like. Effect size is important because it allows researchers to compare the strength of results across studies and also to understand the real world impact of the results.
+'''
+)
+
+st.markdown('''
+The interpretation of effect size as small, medium, or large is based on a convention and it is not universally agreed upon. One commonly used convention for interpreting effect sizes is Cohen's d, where the effect size is classified as:
+- Small: d = 0.2
+- Medium: d = 0.5
+- Large: d = 0.8
+However, depending on the field of research, the threshold values may differ. Another convention used is r-value for Pearson correlation coefficient, where the effect size is classified as:
+- Small: r = 0.1
+- Medium: r = 0.3
+- Large: r = 0.5
+It's worth noting that these are just rough guidelines and the interpretation of effect size should also take into account the specific context and research question of your study. Therefore, It is important to compare the effect size with effect sizes of similar studies in the field of research and also to look at the real-world or practical impact of the effect size.
 [https://openai.com/blog/chatgpt/]
 '''
 )
