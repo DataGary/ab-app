@@ -6,7 +6,7 @@ import statsmodels.stats as sm
 import numpy as np
 from pingouin import power_chi2
 
-tab1, tab2 = st.tabs(["⚙︎ Test", "🔬 Stats"])
+tab1, tab2 = st.tabs(["⚙︎ Test", "🔬 Detailed Results"])
 
 with tab1:
     st.markdown('''
@@ -102,25 +102,17 @@ with tab1:
     with tab2:
         # check if sample size too small for chi-square test
         # in that case use fisher exact test
-
         if num_pos_A > 5 and num_pos_B > 5 and num_neg_A > 5 and num_neg_B > 5:
-            st.markdown('**Chi-square test of independence of variables in a contingency table.**')
             stat, p, dof, ex= chi2_contingency(cont_table, correction=False)
-            st.write(f'Chi-square value: {round(stat,2)}') 
-            st.write(f'p-value: {round(p,4)}') 
-            st.write(f'Degrees of freedom: {dof}') 
-            # st.write(f'Expected: {ex}')
-            # calculate effect size
             phi_effect=np.sqrt(stat/(group_A+group_B))
             if phi_effect < 0.3:
-                st.write(f'Phi: {round(phi_effect,2)} (small effect)')
+                effect_string =  'small'
             elif phi_effect < 0.5:
-                st.write(f'Phi: {round(phi_effect,2)} (medium effect)')
+                effect_string =  'medium'
             else:
-                st.write(f'Phi: {round(phi_effect,2)} (large effect)')
+                effect_string =  'large'
             # calculate odds ratio
             odds_ratio_xi = (num_pos_A*num_neg_B)/(num_neg_A*num_pos_B)
-            st.write(f'Odds Ratio (OR): {round(odds_ratio_xi,2)}')
             # calculate power
             pwr = power_chi2(
                 dof = dof,
@@ -129,14 +121,71 @@ with tab1:
                 power = None,
                 alpha = significance_level
             )
-            st.write(f'Power: {round(pwr,4)}')
+            if p < significance_level:
+                st.markdown(f'''
+                # Chi-square Test of Independence
+                
+                The chi-square test of independence was conducted to assess the association between two categorical variables. 
+
+                ### Results
+                - Chi-square value: {round(stat,2)}
+                - Degrees of freedom: {dof}
+                - p-value: {round(p,4)}
+                - Phi: {round(phi_effect,2)} (effect size)
+                - Odds Ratio (OR): {round(odds_ratio_xi,2)}
+                - Power: {round(pwr,3)}
+
+                ### Interpretation
+
+                The p-value of {round(p,4)} is less than the significance level of {significance_level}, indicating that there is a statistically significant difference between the two groups. The effect size (Phi) is {round(phi_effect,2)}, which is considered a ({effect_string}) effect. The odds ratio (OR) of {round(odds_ratio_xi,2)} suggests that there is a {round(odds_ratio_xi,2)} times higher odds of the outcome occurring in one group compared to the other. The power of the test is {round(pwr,3)}, which means that the test has a {round(pwr*100,1)}% probability of detecting a statistically significant effect if one exists.
+                ''')
+            else:
+                st.markdown(f'''
+                # Chi-square Test of Independence
+                
+                The chi-square test of independence was conducted to assess the association between two categorical variables. 
+
+                ### Results
+                - Chi-square value: {round(stat,2)}
+                - Degrees of freedom: {dof}
+                - p-value: {round(p,4)}
+                - Power: {round(pwr,3)}
+
+                ### Interpretation
+
+                The p-value of {round(p,4)} is greater or equal to the significance level of {significance_level}, indicating that there is no statistically significant difference between the two groups. The power of the test is {round(pwr,3)}, which means that the test has a {round(pwr*100,1)}% probability of detecting a statistically significant effect if one exists.
+                ''')
+
+
         else:
-            st.markdown('**Fisher exact test on a 2x2 contingency table.**')
             odds_ratio_fi, p= fisher_exact(cont_table)
-            st.write(f'p-value: {round(p,4)}')
-            st.write(f'Odds Ratio (OR): {round(odds_ratio_fi,2)}')
-            # TO DO: implement other metrics for fisher exact
-            
+            if p < significance_level:
+                st.markdown(f'''
+                # Fisher's Exact Test
+
+                The Fisher's exact test was conducted to assess the association between two categorical variables in a 2x2 contingency table. The Fisher's exact test was chosen because one or more of the values in the contingency table were lower or equal to 5, which would not meet the assumption of the chi-square test.
+
+                ### Results
+                - p-value: {round(p,4)}
+                - Odds Ratio (OR): {round(odds_ratio_fi,2)}
+
+                ### Interpretation
+
+                The p-value of {round(p,4)} is less than the significance level of {significance_level}, indicating that there is a statistically significant difference between the two groups and rejecting the null hypothesis that there is no difference between the two groups. The odds ratio (OR) of {round(odds_ratio_fi,2)} suggests that there is a {round(odds_ratio_fi,2)} times higher odds of the outcome occurring in one group compared to the other.
+               ''')
+            else:
+                st.markdown(f'''
+                # Fisher's Exact Test
+
+                The Fisher's exact test was conducted to assess the association between two categorical variables in a 2x2 contingency table. The Fisher's exact test was chosen because one or more of the values in the contingency table were lower or equal to 5, which would not meet the assumption of the chi-square test.
+
+                ### Results
+                - p-value: {round(p,4)}
+
+                ### Interpretation
+
+                The p-value of {round(p,4)} is greater or equal to the significance level of {significance_level}, indicating that there is no statistically significant difference between the two groups and failing to reject the null hypothesis that there is no difference between the two groups.
+               ''')
 
     # eval test
     if p <= significance_level:
